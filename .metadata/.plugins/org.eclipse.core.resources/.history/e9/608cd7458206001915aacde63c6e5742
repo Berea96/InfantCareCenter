@@ -1,0 +1,353 @@
+package controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import action.Action;
+import bean.ActionForward;
+
+@WebServlet("*.do")
+public class MemberController extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
+
+	public MemberController() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doProcess(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doProcess(request, response);
+	}
+
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// �슂泥�諛쏆� request�쓽 �씤肄붾뵫 �꽕�젙
+		request.setCharacterEncoding("UTF-8");
+
+		// �슂泥� url�뿉 ���븳 泥섎━(command濡� 蹂��솚)
+		String RequestURI = request.getRequestURI();
+		String contextPath = request.getContextPath();
+		String command = RequestURI.substring(contextPath.length());
+
+		/***
+		 * �긽�떆 寃��궗�슜***
+		 ***/
+		System.out.println("-- now At FrontController");
+		System.out.println("RequestURI : " + RequestURI);
+		System.out.println("RequestURI : " + contextPath);
+		System.out.println("command : " + command);
+		System.out.println();
+
+		Action action = null;
+		ActionForward forward = null;
+		Ajax ajax = null;
+		String responseText = null;
+
+		/** command�뿉 �뵲瑜� ActionForward �씤�뒪�꽩�뒪 �깮�꽦 */
+		
+			// 1) �쉶�썝媛��엯_�긽�떒 諛� 
+		if (command.equals("/memberJoin.kly")) {
+			action = new MemberJoinAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 2) 議고쉶 �닔 �궡由쇱감�닚 由ъ뒪�듃_硫붿씤 �럹�씠吏� 
+		} else if (command.equals("/indexTopList.kly")) {
+			ajax = new IndexTopListAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				System.out.println("\nTOP READ LIST responseText 諛섑솚\n");
+				response.getWriter().write(responseText);
+				System.out.println("\nTOP READ LIST 諛섑솚\n");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 2) 異붿쿇 �닔 �궡由쇱감�닚 由ъ뒪�듃_硫붿씤 �럹�씠吏�
+		} else if (command.equals("/indexLikeList.kly")) {
+			ajax = new IndexLikeListAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 1) �븘�씠�뵒 以묐났泥댄겕_�긽�떒 諛�
+		} else if (command.equals("/idOverlapCheck.kly")) {
+			ajax = new IdOverlapCheckAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.getWriter().write(responseText);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 1) �쉶�썝 媛��엯 �떆, �씠硫붿씪 �씤利�_�긽�떒 諛�
+		} else if (command.equals("/emailAuthAction.kly")) {
+			action = new EmailAuthAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 1) �씠硫붿씪 �씤利�_�긽�떒 諛�(�쉶�썝 �씤利� 硫붿씪)
+		} else if (command.equals("/emailCheckedAction.kly")) {
+			action = new EmailCheckedAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 1) �쉶�썝 濡쒓렇�씤_�긽�떒 諛�
+		} else if (command.equals("/memberLogin.kly")) {
+			action = new MemberLoginAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 1) �쉶�썝 濡쒓렇�븘�썐_�긽�떒 諛�
+		} else if (command.equals("/memberLogout.kly")) {
+			action = new MemberLogoutAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 1) �쉶�썝 鍮꾨�踰덊샇 李얘린_�긽�떒 諛�
+		} else if (command.equals("/memberFindPass.kly")) {
+			action = new MemberFindPassAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 1) �쉶�썝 鍮꾨�踰덊샇 李얘린 �뻽�쓣 寃쎌슦, 鍮꾨�踰덊샇 珥덇린�솕_�긽�떒 諛�
+		} else if (command.equals("/memberInitPass.kly")) { //
+			action = new MemberInitPassAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 3) �쉶�썝 �젙蹂�_留덉씠�럹�씠吏�
+		} else if (command.equals("/memberDetail.kly")) {
+			action = new MemberDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 3) �쉶�썝 �깉�눜_留덉씠�럹�씠吏�
+		} else if (command.equals("/memberDrop.kly")) {
+			action = new MemberDropAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 3) �쉶�썝 �젙蹂� 蹂�寃�_留덉씠�럹�씠吏�
+		} else if (command.equals("/memberInfoRivision.kly")) {
+			action = new MemberModifyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 1) �쉶�썝 �엫�떆 鍮꾨�踰덊샇濡� 濡쒓렇�씤 �썑 鍮꾨�踰덊샇 蹂�寃� �떆_�긽�떒 諛�
+		} else if (command.equals("/memberInfoRivisionFromTemp.kly")) {
+			action = new MemberModifyFromTempAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 3) �쉶�썝 寃뚯떆臾� 由ъ뒪�듃_留덉씠�럹�씠吏�
+		}else if (command.equals("/myContent.kly")) {
+			action = new MemberContentListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) �쉶�썝 寃뚯떆臾� �벑濡�_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/boardWrite.kly")) {
+			action = new BoardWriteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) 寃뚯떆臾� 由ъ뒪�듃_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/boardList.kly")) {
+			action = new BoardListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 1) 愿�由ъ옄 �뙎湲� 由ъ뒪�듃_愿�由ъ옄 �럹�씠吏�
+		} else if (command.equals("/adminComment.kly")) {
+			action = new AdminCommentListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) 寃뚯떆臾� �뙎湲�  �벑濡�_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/boardComment.kly")) {
+			action = new BoardCommentAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) 寃뚯떆臾� 移댄뀒怨좊━ �꽕�젙_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/boardCategory.kly")) {
+			action = new BoardCategoryAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) 由ъ뒪�듃 �럹�씠吏� �젙�젹_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/boardArray.kly")) {
+			action = new BoardArrayAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) 寃뚯떆臾� 異붿쿇_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/boardLike.kly")) {
+			action = new BoardLikeAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) 寃뚯떆臾� �떊怨�_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/boardReport.kly")) {
+			action = new BoardReportAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) 寃뚯떆臾� �궘�젣_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/boardDelete.kly")) {
+			action = new BoardDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) 寃뚯떆臾� 寃��깋_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/boardSearch.kly")) {
+			action = new BoardSearchAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 4) 寃뚯떆臾� �뜑蹂닿린_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/moreList.kly")) {
+			action = new MoreListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 5) 寃뚯떆臾� �떊怨� 由ъ뒪�듃_愿�由ъ옄 �럹�씠吏�
+		} else if (command.equals("/boardSuspendList.kly")) { // 寃뚯떆臾� 愿�由ы럹�씠吏�
+			action = new BoardSuspendListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 5) 寃뚯떆臾� �궘�젣_愿�由ъ옄 �럹�씠吏�
+		} else if (command.equals("/boardSuspendDelete.kly")) { // 寃뚯떆臾� 愿�由ы럹�씠吏��뿉�꽌�쓽 �궘�젣
+			action = new BoardSuspendDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 5) 寃뚯떆臾� �떊怨� 由ъ뒪�듃_愿�由ъ옄 �럹�씠吏�
+		} else if (command.equals("/boardSuspendRelieve.kly")) { // 寃뚯떆臾� 愿�由ы럹�씠吏��뿉�꽌�쓽 �떊怨� �빐�젣(REPORT_COUNT = 0)
+			action = new BoardSuspendRelieveAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("/memberSuspendList.kly")) {
+			action = new MemberSuspendListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("/memberSuspedDelete.kly")) {
+			action = new MemberSuspendDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("/memberSuspend.kly")) {
+			action = new MemberSuspendAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (command.equals("/memberSuspedRelieve.kly")) {
+			action = new MemberSuspedRelieveAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//
+		} else if (command.equals("/cancelLike.kly")) {
+			response.getWriter().write("success");
+			// 4) 寃뚯떆臾� 議고쉶 �닔 利앷�_由ъ뒪�듃 �럹�씠吏�
+		} else if (command.equals("/viewCount.kly")) {
+			ajax = new viewCountAjax();
+			try {
+				responseText = ajax.getJSON(request, response); // JSON
+				response.getWriter().write(responseText);
+				System.out.println("at Controller\nJSON data 蹂대궡湲� �꽦怨�");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		//./cancleLike.kly
+
+		/** 2. ActionForward �씤�뒪�꽩�뒪�뿉 �뵲瑜� forwarding */
+		if (forward != null) {
+			if (forward.isRedirect()) {
+				response.sendRedirect(forward.getPath());
+			} else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
+				dispatcher.forward(request, response);
+			}
+		}
+	}
+}
