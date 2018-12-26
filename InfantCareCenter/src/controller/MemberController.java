@@ -13,6 +13,7 @@ import action.Action;
 import action.EmailAuthAction;
 import action.EmailCheckedAction;
 import action.MemberJoinAction;
+import action.MemberLoginAction;
 import ajax.Ajax;
 import ajax.IdOverlapCheckAjax;
 import bean.ActionForward;
@@ -88,7 +89,7 @@ public class MemberController extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		/*else if (command.equals("/memberLogin.do")) {
+		else if (command.equals("/memberLogin.do")) {
 			action = new MemberLoginAction();
 			try {
 				forward = action.execute(request, response);
@@ -96,10 +97,8 @@ public class MemberController extends HttpServlet {
 				e.printStackTrace();
 			}
 			// 1) 회원 로그아웃_상단 바
-		}*/
+		}
 		
-		
-
 		/** 2. ActionForward 인스턴스에 따른 forwarding */
 		if (forward != null) {
 			if (forward.isRedirect()) {

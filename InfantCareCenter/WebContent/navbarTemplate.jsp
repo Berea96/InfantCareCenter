@@ -77,7 +77,7 @@
                         <div class="form-group">
                             <div class="modal-body">
                                     <div class="container">
-                                       <a href="./index.jsp"><img src="./images/kly.png" style="display:block; height: 300px" /></a>
+                                       <a href="./index.jsp"><img src="/img/apple.jpg" style="display:block; height: 300px" /></a>
                                     </div>
                                     
                                     <h5><label>아이디</label></h5>
