@@ -42,10 +42,10 @@
 			
 			<c:when test="${loginInfo.getMEMBER_ID().equals('admin')}">
         		<div class="btn-group">
-		       		 <button class="btn btn-outline-info" onclick="location.href='./boardSuspendList.kly'">
+		       		 <button class="btn btn-outline-info" onclick="location.href='./boardSuspendList.do'">
 	        	    	관리자 모드
 	        	    </button>
-	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.kly'">
+	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.do'">
 	        	    	로그아웃
 	        	    </button>
         		</div>
@@ -53,10 +53,10 @@
         	
         	<c:otherwise>
 	        	<div class="btn-group">
-	        	    <button class="btn btn-outline-primary" onclick="location.href='./memberDetail.kly'">
+	        	    <button class="btn btn-outline-primary" onclick="location.href='./memberDetail.do'">
 	        	    	마이페이지
 	        	    </button>
-	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.kly'">
+	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.do'">
 	        	    	로그아웃
 	        	    </button>
 	        	</div>
