@@ -165,5 +165,39 @@ public class MemberDAO {
 		return result;
 	}
 
-	
+	public MemberBean loginMember(MemberBean mb) {
+		String sql = "select * from member where member_id = ? and member_pw = ?";
+		System.out.println("로그인 시도한 유저 아이디 : " + mb.getMEMBER_ID());
+		MemberBean result = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mb.getMEMBER_ID());
+			pstmt.setString(2, mb.getMEMBER_PW());
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = new MemberBean();
+				result.setMEMBER_ID(rs.getString("MEMBER_ID"));
+				result.setMEMBER_PW(rs.getString("MEMBER_PW"));
+				result.setMEMBER_TEMPPASS(rs.getString("MEMBER_TEMPPASS"));
+				result.setMEMBER_SETTEMP(rs.getInt("MEMBER_SETTEMP"));
+				result.setMEMBER_EMAIL(rs.getString("MEMBER_EMAIL"));
+				result.setMEMBER_CHECKED(rs.getInt("MEMBER_CHECKED"));
+				result.setMEMBER_DATE(rs.getDate("MEMBER_DATE"));
+				result.setMEMBER_SUSPENED(rs.getDate("MEMBER_SUSPENDED"));
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close(rs);
+				close(pstmt);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 }

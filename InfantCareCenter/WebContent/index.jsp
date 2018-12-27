@@ -25,9 +25,12 @@
   <body>
 
     <!-- Navigation -->
+<<<<<<< HEAD
 	<%@include file="./navbarTemplate.jsp" %>    
+=======
+    <%@include file="./navbarTemplate.jsp" %>
+>>>>>>> develop2
     
-
     <header>
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">

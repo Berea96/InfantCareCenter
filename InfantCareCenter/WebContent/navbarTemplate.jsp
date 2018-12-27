@@ -14,9 +14,63 @@
 </style>
 </head>
 <body>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="index.jsp">Start Bootstrap</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="about.jsp">소개</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="menu1.jsp">메뉴1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="menu2.jsp">메뉴2</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="menu3.jsp" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        	        메뉴3
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="menu3.jsp">Menu3-1</a>
+                <a class="dropdown-item" href="menu3.jsp">Menu3-2</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       	           메뉴4
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                <a class="dropdown-item" href="menu4.jsp">Menu4-1</a>
+                <a class="dropdown-item" href="menu4.jsp">Menu4-2</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            	    그외
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                <a class="dropdown-item" href="full-width.html">Full Width Page</a>
+                <a class="dropdown-item" href="sidebar.jsp">Sidebar Page</a>
+                <a class="dropdown-item" href="sidebar2.jsp">FAQ</a>
+                <a class="dropdown-item" href="404.html">404</a>
+                <a class="dropdown-item" href="pricing.html">Pricing Table</a>
+              </div>
+            </li>
+            
+
+	<style>
+	.warn {
+		border : 1px red solid;
+	}
+</style>
 
 
-
+<<<<<<< HEAD
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="index.html">Start Bootstrap</a>
@@ -77,6 +131,8 @@
 	</style>
 
 
+=======
+>>>>>>> develop2
         
         <c:choose>
         	<c:when test="${empty loginInfo.getMEMBER_ID()}">
@@ -92,10 +148,10 @@
 			
 			<c:when test="${loginInfo.getMEMBER_ID().equals('admin')}">
         		<div class="btn-group">
-		       		 <button class="btn btn-outline-info" onclick="location.href='./boardSuspendList.kly'">
+		       		 <button class="btn btn-outline-info" onclick="location.href='./boardSuspendList.do'">
 	        	    	관리자 모드
 	        	    </button>
-	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.kly'">
+	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.do'">
 	        	    	로그아웃
 	        	    </button>
         		</div>
@@ -103,10 +159,10 @@
         	
         	<c:otherwise>
 	        	<div class="btn-group">
-	        	    <button class="btn btn-outline-primary" onclick="location.href='./memberDetail.kly'">
+	        	    <button class="btn btn-outline-primary" onclick="location.href='./memberDetail.do'">
 	        	    	마이페이지
 	        	    </button>
-	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.kly'">
+	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.do'">
 	        	    	로그아웃
 	        	    </button>
 	        	</div>
@@ -219,6 +275,12 @@
             
           </ul>
         </div>
+<<<<<<< HEAD
+=======
+        
+        
+        
+>>>>>>> develop2
       </div>
     </nav>
     

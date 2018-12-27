@@ -55,6 +55,14 @@ public class MemberLoginAction implements Action {
 			out.close();
 		}
 		
+		System.out.println("id : " + loginInfo.getMEMBER_ID());
+		System.out.println("pw : " + loginInfo.getMEMBER_PW());
+		System.out.println("email : " + loginInfo.getMEMBER_EMAIL());
+		System.out.println("pwcheck : " + loginInfo.getMEMBER_SETTEMP());
+		System.out.println("emailcheck : " + loginInfo.getMEMBER_CHECKED());
+		System.out.println("date : " + loginInfo.getMEMBER_DATE());
+		System.out.println("suspened : " + loginInfo.getMEMBER_SUSPENED());
+		
 		// 정지 회원을 위한 데이터 불러오기
 		Date Member_suspendDate = loginInfo.getMEMBER_SUSPENED();
 		System.out.println("Member_suspendDate" + Member_suspendDate);
