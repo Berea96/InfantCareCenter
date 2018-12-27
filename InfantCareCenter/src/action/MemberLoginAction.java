@@ -1,7 +1,7 @@
 package action;
 
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import bean.ActionForward;
 import bean.MemberBean;
 import service.MemberLoginService;
-import service.MemberSuspendRelieveService;
 
 public class MemberLoginAction implements Action {
 
@@ -61,27 +60,27 @@ public class MemberLoginAction implements Action {
 		System.out.println("Member_suspendDate" + Member_suspendDate);
 		
 		// 2) 정지된 회원이 로그인 할 경우 
-		if (loginInfo.getMEMBER_SUSPENED() != null) {
-			if ( Member_suspendDate.compareTo(nowDate) == -1 || Member_suspendDate.compareTo(nowDate) == 0) { // || Member_suspendDate.compareTo(nowDate) == 0 1
-				MemberSuspendRelieveService memberSuspendRelieveService = new MemberSuspendRelieveService();
-				boolean deleteResult = memberSuspendRelieveService.RelieveSuspendBoard(MEM_ID);
-				
-				HttpSession session = request.getSession();
-				session.setAttribute("loginInfo", loginInfo);
-				af = new ActionForward();
-				// 성공 했으면 다시 메인 페이지로
-				af.setPath("./index.jsp");
-			} else {
-				out.println("<script>");
-				System.out.println("loginInfo.getMEMBER_SUSPENED() " + loginInfo.getMEMBER_SUSPENED());
-				out.println("alert('"+loginInfo.getMEMBER_SUSPENED()+"일까지 정지된 회원입니다.');");
-				out.println("location.href='./index.jsp';");
-				out.println("</script>");
-				out.close();
-			}
-		}
+//		if (loginInfo.getMEMBER_SUSPENED() != null) {
+//			if ( Member_suspendDate.compareTo(nowDate) == -1 || Member_suspendDate.compareTo(nowDate) == 0) { // || Member_suspendDate.compareTo(nowDate) == 0 1
+//				MemberSuspendRelieveService memberSuspendRelieveService = new MemberSuspendRelieveService();
+//				boolean deleteResult = memberSuspendRelieveService.RelieveSuspendBoard(MEM_ID);
+//				
+//				HttpSession session = request.getSession();
+//				session.setAttribute("loginInfo", loginInfo);
+//				af = new ActionForward();
+//				// 성공 했으면 다시 메인 페이지로
+//				af.setPath("./index.jsp");
+//			} else {
+//				out.println("<script>");
+//				System.out.println("loginInfo.getMEMBER_SUSPENED() " + loginInfo.getMEMBER_SUSPENED());
+//				out.println("alert('"+loginInfo.getMEMBER_SUSPENED()+"일까지 정지된 회원입니다.');");
+//				out.println("location.href='./index.jsp';");
+//				out.println("</script>");
+//				out.close();
+//			}
+//		}
 		// 3) 임시 비밀번호로 로그인할 경우 비밀번호 변경 페이지로 이동
-		else if (loginInfo.getMEMBER_SETTEMP() == 1) {
+		if (loginInfo.getMEMBER_SETTEMP() == 1) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginInfo", loginInfo);
 			af = new ActionForward();
