@@ -1,7 +1,7 @@
 package action;
 
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +54,7 @@ public class MemberLoginAction implements Action {
 			out.println("location.href='./index.jsp';");
 			out.println("</script>");
 			out.close();
+			return af;
 		}
 		
 		// 정지 회원을 위한 데이터 불러오기
@@ -92,6 +93,7 @@ public class MemberLoginAction implements Action {
 		else if (loginInfo.getMEMBER_CHECKED() == 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginInfo", loginInfo);
+			session.setAttribute("memberID", loginInfo.getMEMBER_ID());
 			af = new ActionForward();
 			af.setPath("./emailSendConfirm.jsp");
 			af.setRedirect(true);
