@@ -53,7 +53,7 @@
         </div>
         <!-- Content Column -->
         <div class="col-lg-9 mb-4">
-        <div class="jumbotron" style="background-image: url('img/Switzerland1.jpg'); background-size: cover">
+        <div class="jumbotron" style="background-image: url('img/Snow-trees-winter-white-world_1920x1080.jpg'); background-size: cover">
 	          <h2>이미지?</h2>
 	          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, et temporibus, facere perferendis veniam beatae non debitis, numquam blanditiis necessitatibus vel mollitia dolorum laudantium, voluptate dolores iure maxime ducimus fugit.</p>
 	    </div>
