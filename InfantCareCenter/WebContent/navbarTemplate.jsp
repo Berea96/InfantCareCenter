@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="about.html">소개</a>
+              <a class="nav-link" href="about.jsp">소개</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="menu1.jsp">메뉴1</a>
