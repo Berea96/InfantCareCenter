@@ -30,15 +30,16 @@
     <div class="container">
 
       <!-- Page Heading/Breadcrumbs -->
-      <h1 class="mt-4 mb-3">Sidebar Page
-        <small>Subheading</small>
+      <h1 class="mt-4 mb-3">Menu
+        <small>3</small>
       </h1>
 
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
+          <a href="index.jsp">Home</a>
         </li>
-        <li class="breadcrumb-item active">About</li>
+        <li class="breadcrumb-item active">Menu3</li>
+        <li class="breadcrumb-item active">Menu3-1</li>
       </ol>
 
       <!-- Content Row -->
@@ -46,15 +47,17 @@
         <!-- Sidebar Column -->
         <div class="col-lg-3 mb-4">
           <div class="list-group">
-            <a href="index.html" class="list-group-item active">메뉴3</a>
-            <a href="about.html" class="list-group-item bg-light">메뉴3-1</a>
-            <a href="services.html" class="list-group-item bg-light">메뉴3-2</a>
+            <a href="menu3.jsp" class="list-group-item active">메뉴3</a>
+            <a href="menu3_1.jsp" class="list-group-item bg-light">메뉴3-1</a>
+            <a href="menu3_2.jsp" class="list-group-item bg-light">메뉴3-2</a>
           </div>
         </div>
         <!-- Content Column -->
         <div class="col-lg-9 mb-4">
-          <h2>Section Heading</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, et temporibus, facere perferendis veniam beatae non debitis, numquam blanditiis necessitatibus vel mollitia dolorum laudantium, voluptate dolores iure maxime ducimus fugit.</p>
+        <div class="jumbotron" style="background-image: url('img/Switzerland1.jpg'); background-size: cover">
+	          <h2>이미지?</h2>
+	          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, et temporibus, facere perferendis veniam beatae non debitis, numquam blanditiis necessitatibus vel mollitia dolorum laudantium, voluptate dolores iure maxime ducimus fugit.</p>
+	    </div>
         </div>
       </div>
       <!-- /.row -->

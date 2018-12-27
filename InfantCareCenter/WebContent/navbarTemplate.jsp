@@ -36,11 +36,8 @@
         	        메뉴3
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                <a class="dropdown-item" href="menu3.jsp">1 Column Portfolio</a>
-                <a class="dropdown-item" href="menu3.jsp">2 Column Portfolio</a>
-                <a class="dropdown-item" href="menu3.jsp">3 Column Portfolio</a>
-                <a class="dropdown-item" href="menu3.jsp">4 Column Portfolio</a>
-                <a class="dropdown-item" href="menu3.jsp">Single Portfolio Item</a>
+                <a class="dropdown-item" href="menu3.jsp">Menu3-1</a>
+                <a class="dropdown-item" href="menu3.jsp">Menu3-2</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -48,9 +45,8 @@
        	           메뉴4
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                <a class="dropdown-item" href="blog-home-1.html">Blog Home 1</a>
-                <a class="dropdown-item" href="blog-home-2.html">Blog Home 2</a>
-                <a class="dropdown-item" href="blog-post.html">Blog Post</a>
+                <a class="dropdown-item" href="menu4.jsp">Menu4-1</a>
+                <a class="dropdown-item" href="menu4.jsp">Menu4-2</a>
               </div>
             </li>
             <li class="nav-item dropdown">

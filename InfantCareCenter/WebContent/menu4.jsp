@@ -31,15 +31,15 @@
 
       <!-- Page Heading/Breadcrumbs -->
       <h1 class="mt-4 mb-3">Menu
-        <small>1</small>
+        <small>4</small>
       </h1>
 
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a href="index.html">Home</a>
         </li>
-        <li class="breadcrumb-item active">Menu1</li>
-        <li class="breadcrumb-item active">Menu1-1</li>
+        <li class="breadcrumb-item active">Menu4</li>
+        <li class="breadcrumb-item active">Menu4-1</li>
       </ol>
 
       <!-- Content Row -->
@@ -47,9 +47,9 @@
         <!-- Sidebar Column -->
         <div class="col-lg-3 mb-4">
           <div class="list-group">
-            <a href="menu1.jsp" class="list-group-item active">메뉴1</a>
-            <a href="menu1_1.jsp" class="list-group-item bg-light">메뉴1-1</a>
-            <a href="menu1_2.jsp" class="list-group-item bg-light">메뉴1-2</a>
+            <a href="menu4.jsp" class="list-group-item active">메뉴4</a>
+            <a href="menu4_1.jsp" class="list-group-item bg-light">메뉴4-1</a>
+            <a href="menu4_2.jsp" class="list-group-item bg-light">메뉴4-2</a>
           </div>
         </div>
         <!-- Content Column -->
