@@ -96,7 +96,13 @@ public class MemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// 1) 회원 로그아웃_상단 바
+		} else if (command.equals("/memberLogout.do")) {
+			action = new MemberLoginAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		/** 2. ActionForward 인스턴스에 따른 forwarding */

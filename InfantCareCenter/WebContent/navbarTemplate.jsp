@@ -108,7 +108,7 @@
 		
 
         
-<script>
+<script type="text/javascript">
 	var overlap = 0; // 0  중복체크 안함, 1 했고 중복 안됌
 	var passConfirm = 0;
 
@@ -212,8 +212,6 @@
             
           </ul>
         </div>
-        
-        
         
       </div>
     </nav>
