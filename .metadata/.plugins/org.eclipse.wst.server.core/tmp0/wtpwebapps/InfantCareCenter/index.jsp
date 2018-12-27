@@ -19,6 +19,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/modern-business.css" rel="stylesheet">
+    
+    
 
   </head>
 
@@ -103,7 +105,7 @@
 		       		 <button class="btn btn-outline-info" onclick="location.href='./boardSuspendList.kly'">
 	        	    	관리자 모드
 	        	    </button>
-	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.kly'">
+	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.do'">
 	        	    	로그아웃
 	        	    </button>
         		</div>
@@ -114,7 +116,7 @@
 	        	    <button class="btn btn-outline-primary" onclick="location.href='./memberDetail.kly'">
 	        	    	마이페이지
 	        	    </button>
-	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.kly'">
+	        	    <button class="btn btn-outline-danger" onclick="location.href='./memberLogout.do'">
 	        	    	로그아웃
 	        	    </button>
 	        	</div>
@@ -198,38 +200,8 @@
 	}
 </script>
 
-
-
-	<!-- 회원 비밀번호 찾기(modal) -->
-	<form action="memberFindPass.kly" method="post">
-	<div class="modal" id="MissingForm">
-		<div class="modal-dialog  modal-lg">
-			<div class="modal-content">
-                   <div class="modal-header">
-                       <h4 class="modal-title">비밀번호 찾기</h4>
-                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                   </div>
-				
-				<div class="modal-body">
-					현재 아이디를 입력하시면, 가입 정보에 기입된 이메일로 안내 메일을 발송해 드립니다.
-						<input class="form-control" type="text" name="memberID" placeholder="아이디를 입력해주세요.">
-				</div>
-				
-				<div class="modal-footer">
-					<p style="color:red;" id="passCheckMessage"></p>
-					<button class="btn btn-info" type="submit">이메일 전송</button>
-	
-				</div>
-			</div>
-		</div>
-	</div>
-	</form>
-            
           </ul>
         </div>
-        
-        
-        
       </div>
     </nav>
     
@@ -283,8 +255,8 @@
 		                                <h5><label>아이디</label></h5>
 		                            	<div class="row">
 											<div class="col-sm-9">
-		                                		<input class="form-control" name="MEMBER_ID" type="text" maxlength="10" id="joinId" placeholder="아이디를 입력해 주세요." />
-		                                		<input class="form-control" name="memberID" type="hidden" maxlength="10" id="tempId" placeholder="아이디를 입력해 주세요." />
+		                                		<input class="form-control" name="MEMBER_ID" type="text" maxlength="5" id="joinId" placeholder="아이디를 입력해 주세요." />
+		                                		<input class="form-control" name="memberID" type="hidden" maxlength="5" id="tempId" placeholder="아이디를 입력해 주세요." />
 											</div>
 									
 											<div class="col-sm-3">
@@ -321,6 +293,33 @@
                 </div>
             </div>
         </div>
+        
+    	<!-- 회원 비밀번호 찾기(modal) -->
+	<form action="memberFindPass.do" method="post">
+	<div class="modal" id="MissingForm">
+		<div class="modal-dialog  modal-lg">
+			<div class="modal-content">
+                   <div class="modal-header">
+                       <h4 class="modal-title">비밀번호 찾기</h4>
+                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+                   </div>
+				
+				<div class="modal-body">
+					현재 아이디를 입력하시면, 가입 정보에 기입된 이메일로 안내 메일을 발송해 드립니다.
+						<input class="form-control" type="text" name="memberID" placeholder="아이디를 입력해주세요.">
+				</div>
+				
+				<div class="modal-footer">
+					<p style="color:red;" id="passCheckMessage"></p>
+					<button class="btn btn-info" type="submit">이메일 전송</button>
+	
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+    
+    
     
     
 

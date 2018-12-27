@@ -12,7 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.EmailAuthAction;
 import action.EmailCheckedAction;
+import action.MemberFindPassAction;
+import action.MemberInitPassAction;
 import action.MemberJoinAction;
+import action.MemberLoginAction;
+import action.MemberLogoutAction;
+import action.MemberModifyAction;
 import ajax.Ajax;
 import ajax.IdOverlapCheckAjax;
 import bean.ActionForward;
@@ -87,18 +92,47 @@ public class MemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		/*else if (command.equals("/memberLogin.do")) {
+			// 로그인 
+		}else if (command.equals("/memberLogin.do")) {
 			action = new MemberLoginAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// 1) 회원 로그아웃_상단 바
-		}*/
-		
-		
+			//로그아웃
+		} else if (command.equals("/memberLogout.do")) {
+			action = new MemberLogoutAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//비밀번호 찾기
+		} else if (command.equals("/memberFindPass.do")) {
+			action = new MemberFindPassAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 임시비밀번호 처리
+		} else if (command.equals("/memberInitPass.do")) { //
+			action = new MemberInitPassAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			// 회원정보 변경_마이페이지
+		}  else if (command.equals("/memberInfoRivision.do")) {
+			action = new MemberModifyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 		/** 2. ActionForward 인스턴스에 따른 forwarding */
 		if (forward != null) {
