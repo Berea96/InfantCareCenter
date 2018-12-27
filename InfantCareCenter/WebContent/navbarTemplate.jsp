@@ -69,8 +69,6 @@
 	}
 </style>
 
-
-        
         <c:choose>
         	<c:when test="${empty loginInfo.getMEMBER_ID()}">
         		<div class="btn-group">
@@ -106,8 +104,6 @@
         	</c:otherwise>
         </c:choose>
 		
-
-        
 <script type="text/javascript">
 	var overlap = 0; // 0  중복체크 안함, 1 했고 중복 안됌
 	var passConfirm = 0;
@@ -183,9 +179,177 @@
 	}
 </script>
 
-
-
 	<!-- 회원 비밀번호 찾기(modal) -->
+<script>
+	var overlap = 0; // 0  중복체크 안함, 1 했고 중복 안됌
+	var passConfirm = 0;
+
+	/* 아이디 중복체크 */
+	function idCheck() {
+		var id = document.getElementById("joinId");
+		
+		console.log("idCheck 실행");
+		if(id.value == ""){
+			console.log("null if문 실행")
+			alert('id를 입력해주세요');
+			return;
+		} else if(id.value.match(/[가-힣ㄱ-ㅎㅏ-ㅣ]/)) {
+			alert('아이디는 한글을 제외해 주세요.');
+			return;
+		}
+	
+		
+ 		var req = new XMLHttpRequest();
+		req.onreadystatechange = function() {
+			if(this.readyState == 4 && this.status == 200) {
+				var out = JSON.parse(this.responseText);
+				if(out.result == "yes") {
+					alert('아이디가 존재합니다.');
+				} else {
+					alert('사용 가능한 아이디 입니다.');
+					overlap = 1; // 중복체크 완료
+					var checkbutton = document.getElementById("checkButton");
+					checkbutton.className += " disabled";
+					id.disabled = true;
+					console.log('버튼 비활성화 완료');
+					document.getElementById("tempId").value = id.value;
+				}
+			}
+		}
+		req.open("GET","./idOverlapCheck.do?check="+id.value, true);
+		req.send();
+	}
+	
+	/* 패스워드 일치 알림 */
+	function passCheck() {
+		var pass1 = $("#pass1").val();
+		var pass2 = $("#pass2").val();
+		if(pass1 != pass2) {
+			$("#passCheckMessage").html("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+			$("#pass1").addClass("warn");
+			$("#pass2").addClass("warn")
+		} else {
+			$("#passCheckMessage").html("");
+			$("#pass1").removeClass("warn");
+			$("#pass2").removeClass("warn");
+			 passConfirm = 1;
+		}
+	}
+	
+	/* 가입 버튼 */
+	function join() {
+		var email = $("#inputEmail").val();
+		if(overlap==0) {
+			alert("id 중복체크를 해주세요.");
+			return false;
+		} else if(passConfirm==0) {
+			alert("비밀번호가 일치하지 않습니다.");
+			return false;
+		} else if(email=="") {
+			console.log(email);
+			alert("이메일을 입력해 주세요.");
+			return false;
+		} else if(overlap==1 && passConfirm==1) {
+			$("#joinFomat").submit();
+		}
+	}
+</script>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    
+            <!-- 로그인(modal) -->
+        <div class="modal" id="loginForm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    
+                       <div class="modal-header">
+                        <h4 class="modal-title">로그인</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    
+                    <form action="memberLogin.do" method="post">
+                        <div class="form-group">
+                            <div class="modal-body">
+                                    <div class="container">
+                                       <a href="./index.jsp"><img src="./images/kly.png" style="display:block; height: 300px" /></a>
+                                    </div>
+                                    
+                                    <h5><label>아이디</label></h5>
+                                    <input class="form-control" name="loginId" type="text" id="id" />
+                                    <h5><label>비밀번호</label></h5>
+                                    <input class="form-control" name="loginPwd" type="password" id="pwd" />
+                                    <a data-toggle="modal" data-target="#MissingForm"><u>혹시 비밀번호를 잊어버리셨나요?</u></a>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">로그인</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 회원가입(modal) -->
+        <div class="modal" id="joinForm">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">회원가입</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <form action="memberJoin.do" method="post" id="joinFomat">
+                        <div class="form-group">
+                            <div class="modal-body">
+                                
+                                <div class="row">
+									<div class="col-sm">
+		                                <h5><label>아이디</label></h5>
+		                            	<div class="row">
+											<div class="col-sm-9">
+		                                		<input class="form-control" name="MEMBER_ID" type="text" maxlength="5" id="joinId" placeholder="아이디를 입력해 주세요." />
+		                                		<input class="form-control" name="memberID" type="hidden" maxlength="5" id="tempId" placeholder="아이디를 입력해 주세요." />
+											</div>
+									
+											<div class="col-sm-3">
+												<button type="button" class="btn btn-info" id="checkButton" onclick="idCheck()">중복체크</button> <!-- 중복체크 완료시 disable -->
+											</div>
+										</div>
+									</div>
+                                </div>
+
+								<div class="row mt-2 mb-2">
+									
+									<div class="col-sm">
+										<label><h5>비밀번호</h5></label>
+										<input class="form-control" name="MEMBER_PW" type="password" id="pass1" onkeyup="passCheck()" placeholder="비밀번호를 입력해 주세요."/>
+									</div>
+									
+									<div class="col-sm">
+										<label><h5>비밀번호 확인</h5></label>
+										<input class="form-control" type="password" id="pass2" onkeyup="passCheck()" placeholder="한번 더  입력해 주세요."/>
+									</div>
+									
+                                </div>
+                                
+                                <label><h5>이메일</h5></label>
+                                <input class="form-control" name="MEMBER_EMAIL" type="email" id="inputEmail" placeholder="이메일을 입력해 주세요."/>
+                                    
+                            </div>
+							<div class="modal-footer">
+								<p style="color:red;" id="passCheckMessage"></p>
+                                <button type="button" class="btn btn-primary" onclick="join()">가입</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    	<!-- 회원 비밀번호 찾기(modal) -->
 	<form action="memberFindPass.do" method="post">
 	<div class="modal" id="MissingForm">
 		<div class="modal-dialog  modal-lg">
@@ -209,7 +373,6 @@
 		</div>
 	</div>
 	</form>
-            
           </ul>
         </div>
         

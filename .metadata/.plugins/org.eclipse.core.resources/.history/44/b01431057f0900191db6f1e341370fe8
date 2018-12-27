@@ -1,0 +1,50 @@
+package ajax;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import service.MemberJoinService;
+import service.MemberModifyService;
+
+public class tempPassCheckAjax implements Ajax {
+
+	@Override
+	public String getJSON(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		System.out.println("tempPassCheckAjax");
+		
+		StringBuffer result = new StringBuffer("");
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		
+		String inputId = request.getParameter("id");
+		String tempPass = request.getParameter("tpass");
+		
+		/** JSON syntax
+		 * {
+		 *	"employees":[ "John", "Anna", "Peter" ]
+		 * }
+		 * */
+		
+		MemberModifyService memberModifyService = new MemberModifyService();
+		boolean checkResult = memberModifyService.tempPassChk(inputId, tempPass);
+		
+		result.append("{\"result\":");
+		
+		if(checkResult) {
+			result.append("\"yes\"");
+		} else {
+			result.append("\"no\"");
+		}
+		result.append("}");
+		
+		return result.toString();
+		
+		
+	}
+
+
+	
+	
+}

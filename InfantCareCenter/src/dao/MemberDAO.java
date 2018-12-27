@@ -165,38 +165,122 @@ public class MemberDAO {
 		return result;
 	}
 
+	
 	public MemberBean loginMember(MemberBean mb) {
-		String sql = "select * from member where member_id = ? and member_pw = ?";
-		System.out.println("로그인 시도한 유저 아이디 : " + mb.getMEMBER_ID());
-		MemberBean result = null;
+		String sql = "SELECT * FROM MEMBER WHERE MEMBER_ID=?";
+		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, mb.getMEMBER_ID());
-			pstmt.setString(2, mb.getMEMBER_PW());
-			
 			rs = pstmt.executeQuery();
-			
+			System.out.println("::DB에서 아이디 값 : "+mb.getMEMBER_ID());
+			System.out.println("로그인 시도\n");
 			if(rs.next()) {
-				result = new MemberBean();
-				result.setMEMBER_ID(rs.getString("MEMBER_ID"));
-				result.setMEMBER_PW(rs.getString("MEMBER_PW"));
-				result.setMEMBER_TEMPPASS(rs.getString("MEMBER_TEMPPASS"));
-				result.setMEMBER_SETTEMP(rs.getInt("MEMBER_SETTEMP"));
-				result.setMEMBER_EMAIL(rs.getString("MEMBER_EMAIL"));
-				result.setMEMBER_CHECKED(rs.getInt("MEMBER_CHECKED"));
-				result.setMEMBER_DATE(rs.getDate("MEMBER_DATE"));
-				result.setMEMBER_SUSPENED(rs.getDate("MEMBER_SUSPENDED"));
+				System.out.println("쿼리 결과 존재");
+				if(rs.getString("MEMBER_PW").equals(mb.getMEMBER_PW())) {
+					System.out.println("로그인 성공");
+					mb.setMEMBER_ID(rs.getString("MEMBER_ID"));
+					mb.setMEMBER_PW(rs.getString("MEMBER_PW"));
+					mb.setMEMBER_TEMPPASS(rs.getString("MEMBER_TEMPPASS"));
+					mb.setMEMBER_SETTEMP(rs.getInt("MEMBER_SETTEMP"));
+					mb.setMEMBER_EMAIL(rs.getString("MEMBER_EMAIL"));
+					mb.setMEMBER_CHECKED(rs.getInt("MEMBER_CHECKED"));
+					mb.setMEMBER_DATE(rs.getDate("MEMBER_DATE"));
+					mb.setMEMBER_SUSPENED(rs.getDate("MEMBER_SUSPENDED"));
+				} else {
+					System.out.println("비밀번호 틀림");
+					mb = null;
+				}
+			} else {
+				mb = null;
 			}
+						
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close(pstmt);
+				close(rs);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return mb;
+	}
+
+	
+	public int relieveSuspendBoard(String mem_ID) { // 멤버 정지 해제
+		String sql = "UPDATE MEMBER SET MEMBER_SUSPENDED = NULL WHERE MEMBER_ID=?";
+		int updateResult = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mem_ID);
+			updateResult = pstmt.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("relieveMember 오류" + e);
+		} finally {
+			close(pstmt);
+		}
+		return updateResult;
+	}
+
+	
+	public int setTempMember(String memberID, String tempPass) {
+		String sql = "UPDATE MEMBER SET MEMBER_TEMPPASS = ? WHERE MEMBER_ID = ?";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, tempPass);
+			pstmt.setString(2, memberID);
+			result = pstmt.executeUpdate();
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				close(rs);
-				close(pstmt);
+				pstmt.close();
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
+		}
+		return result;
+	}
+
+	
+	/** 마이페이지에서 정보 변경시 사용하는 메소드 */
+	public int modifyMember(MemberBean mb, String currentPassword, String changePassword) {
+		String confirm = "SELECT MEMBER_PW FROM MEMBER WHERE MEMBER_ID = ?";
+		String sql = "UPDATE MEMBER SET MEMBER_PW = ?, MEMBER_SETTEMP = 0 WHERE MEMBER_ID = ?";
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(confirm);
+			pstmt.setString(1, mb.getMEMBER_ID());
+			rs = pstmt.executeQuery();
+
+			// 해당 아이디가 존재
+			if(rs.next()) {
+				System.out.println("아이디가 존재");
+				// 입력 비밀번호가 일치
+				if(rs.getString(1).equals(currentPassword)) {
+					System.out.println("수정 단계");
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, changePassword);
+					pstmt.setString(2, mb.getMEMBER_ID());
+					result = pstmt.executeUpdate();
+				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				close(pstmt);
+				close(rs);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		return result;
 	}

@@ -53,6 +53,7 @@ public class MemberLoginAction implements Action {
 			out.println("location.href='./index.jsp';");
 			out.println("</script>");
 			out.close();
+			return af;
 		}
 		
 		System.out.println("id : " + loginInfo.getMEMBER_ID());
@@ -99,6 +100,7 @@ public class MemberLoginAction implements Action {
 		else if (loginInfo.getMEMBER_CHECKED() == 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginInfo", loginInfo);
+			session.setAttribute("memberID", loginInfo.getMEMBER_ID());
 			af = new ActionForward();
 			af.setPath("./emailSendConfirm.jsp");
 			af.setRedirect(true);
